@@ -9,6 +9,16 @@ import { AuthContext } from "../Provider/AuthProvider";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { user, logOut } = use(AuthContext);
+  const handleLogout = () => {
+    // console.log("log out");
+    logOut()
+      .then(() => {
+        alert("You are logged Out");
+      })
+      .catch((error) => {
+        // console.log(error);
+      });
+  };
 
   return (
     <header className="bg-[#fffaf5] border-b border-gray-200 relative">
@@ -49,13 +59,27 @@ const Header = () => {
           </NavLink>
         </nav>
 
-        <Link
-          to="/auth/login"
-          className="flex items-center gap-2 text-accent font-bold"
-        >
-          <FaRegUserCircle />
-          Login
-        </Link>
+        <div className="flex gap-4">
+        <div className="relative group">
+        <img
+          src={user? user.photoURL : <FaRegUserCircle></FaRegUserCircle>}
+          alt="User"
+          className="w-10 h-10 rounded-full object-cover"
+        />
+        <span className="absolute `bottom-[-2rem]` left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
+                {user?.displayName || "User"}
+              </span>
+        </div>
+        {user ? (
+          <Link onClick={handleLogout} className="btn btn-secondary">
+            LogOut
+          </Link>
+        ) : (
+          <Link to="/auth/login" className="btn btn-secondary">
+            Login
+          </Link>
+        )}
+      </div>
       </div>
 
       {menuOpen && (
