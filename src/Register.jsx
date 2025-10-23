@@ -1,12 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./Provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Register = () => {
-  const { createUser, setUser, updatedUser, googleLogin } = useContext(AuthContext);
+  const { createUser, setUser, updatedUser, googleLogin } =
+    useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -15,7 +19,7 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-  
+
     if (!/[A-Z]/.test(password)) {
       toast.error("Password must contain at least 1 uppercase letter");
       return;
@@ -28,7 +32,7 @@ const Register = () => {
       toast.error("Password must be at least 6 characters long");
       return;
     }
-  
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -36,7 +40,6 @@ const Register = () => {
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
             toast.success("Registered successfully!");
-    
             setTimeout(() => navigate("/"), 1500);
           })
           .catch((error) => {
@@ -51,7 +54,9 @@ const Register = () => {
   const handleGoogleLogin = () => {
     googleLogin()
       .then((user) => {
-        toast.success(`Welcome ${user.displayName || "User"}! Logged in with Google.`);
+        toast.success(
+          `Welcome ${user.displayName || "User"}! Logged in with Google.`
+        );
         setTimeout(() => navigate("/"), 1500);
       })
       .catch((error) => {
@@ -80,16 +85,53 @@ const Register = () => {
 
             <fieldset className="fieldset">
               <label className="label">Name</label>
-              <input name="name" type="text" className="input" placeholder="Your Name" required />
+              <input
+                name="name"
+                type="text"
+                className="input"
+                placeholder="Your Name"
+                required
+              />
 
               <label className="label">Photo URL</label>
-              <input name="photo" type="text" className="input" placeholder="Your Photo URL" required />
+              <input
+                name="photo"
+                type="text"
+                className="input"
+                placeholder="Your Photo URL"
+                required
+              />
 
               <label className="label">Email</label>
-              <input name="email" type="email" className="input" placeholder="Email" required />
+              <input
+                name="email"
+                type="email"
+                className="input"
+                placeholder="Email"
+                required
+              />
 
               <label className="label">Password</label>
-              <input name="password" type="password" className="input" placeholder="Password" required />
+              <div className="relative overflow-visible">
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  className="input input-bordered w-full pr-12 focus:outline-none"
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none z-10"
+                >
+                  {showPassword ? (
+                    <FaEyeSlash size={18} />
+                  ) : (
+                    <FaEye size={18} />
+                  )}
+                </button>
+              </div>
 
               <button type="submit" className="btn btn-neutral mt-4">
                 Register
@@ -98,14 +140,14 @@ const Register = () => {
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                className="btn btn-outline btn-neutral mt-4 w-full"
+                className="btn btn-outline btn-neutral mt-4 w-full flex items-center gap-2"
               >
-               <FcGoogle size={24} /> Register with Google
+                <FcGoogle size={24} /> Register with Google
               </button>
 
-              <p className="mt-2">
+              <p className="mt-2 text-sm">
                 Already Have An Account?{" "}
-                <Link className="text-secondary" to="/auth/login">
+                <Link className="text-secondary font-semibold" to="/auth/login">
                   Login
                 </Link>
               </p>
