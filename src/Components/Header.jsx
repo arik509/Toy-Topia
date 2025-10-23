@@ -1,9 +1,8 @@
 import React, { use, useState } from "react";
 import logo from "../assets/topia.png";
 import { Link, NavLink } from "react-router";
-import { IoCart, IoMenu, IoClose } from "react-icons/io5";
+import { IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
-import Banner from "./Banner";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Header = () => {
@@ -64,7 +63,7 @@ const Header = () => {
         <img
           src={user? user.photoURL : <FaRegUserCircle></FaRegUserCircle>}
           alt="User"
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-10 h-10 rounded-full object-cover cursor-pointer"
         />
         <span className="absolute `bottom-[-2rem]` left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">
                 {user?.displayName || "User"}

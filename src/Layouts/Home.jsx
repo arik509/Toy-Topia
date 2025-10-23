@@ -13,7 +13,7 @@ const Home = () => {
       <header>
         <Navbar />
         <Header />
-        {/* Banner only on home page */}
+       
         {location.pathname === "/" && <Banner />}
       </header>
       <main>

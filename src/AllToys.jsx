@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import { Link, useLoaderData } from "react-router";
+import React, { useState, useContext } from "react";
+import { useLoaderData, useNavigate } from "react-router";
+import { AuthContext } from "./Provider/AuthProvider";
 
 const AllToys = () => {
   const toys = useLoaderData();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const categories = ["All", ...new Set(toys.map((toy) => toy.subCategory))];
 
@@ -13,18 +17,24 @@ const AllToys = () => {
       ? toys
       : toys.filter((toy) => toy.subCategory === selectedCategory);
 
+  const handleViewDetails = (toyId) => {
+    if (!user) {
+      navigate("/auth/login", { state: { from: `/products/${toyId}` } });
+    } else {
+      navigate(`/products/${toyId}`);
+    }
+  };
+
   return (
     <div className="w-11/12 mx-auto">
       <div className="my-[30px] lg:my-[60px] text-[20px]">
-        <Link to="/" className="font-bold">
-          Home /
-        </Link>{" "}
-        <span className="text-secondary">Products</span>
+        Home / <span className="text-secondary">Products</span>
       </div>
 
       <div className="grid grid-cols-12 gap-4">
         
         <div className="col-span-12 md:col-span-3">
+          
           <div className="md:hidden mb-4">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -46,7 +56,7 @@ const AllToys = () => {
                   key={index}
                   onClick={() => setSelectedCategory(cat)}
                   className={`cursor-pointer mb-2 md:mb-4 px-2 py-1 rounded hover:bg-gray-100 ${
-                    selectedCategory === cat ? "text-secondary font-bold " : ""
+                    selectedCategory === cat ? "text-secondary font-bold" : ""
                   }`}
                 >
                   {cat}
@@ -61,7 +71,7 @@ const AllToys = () => {
           {filteredToys.map((toy) => (
             <div
               key={toy.toyId}
-              className="shadow-sm bg-[#fffaf5] rounded p-4 hover:shadow-lg transition flex flex-col"
+              className="shadow-sm bg-[#fffaf5] rounded p-4 hover:shadow-lg transition flex flex-col items-start h-[380px]"
             >
               <img
                 src={toy.pictureURL}
@@ -75,8 +85,11 @@ const AllToys = () => {
                 Rating: {toy.rating} ⭐
               </p>
 
-              <button className="mt-auto bg-secondary text-white py-2 px-4 rounded hover:bg-[#e59970] transition">
-                Add to Cart
+              <button
+                onClick={() => handleViewDetails(toy.toyId)}
+                className="bg-secondary text-white py-2 px-4 rounded hover:bg-[#e59970] transition mt-auto"
+              >
+                View Details
               </button>
             </div>
           ))}

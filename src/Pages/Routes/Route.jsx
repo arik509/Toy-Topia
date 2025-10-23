@@ -5,6 +5,7 @@ import AllToys from "../../AllToys";
 import Login from "../../Login";
 import Register from "../../Register";
 import AuthLayout from "../../Layouts/AuthLayout";
+import ToyDetails from "../../ToyDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,12 +21,11 @@ const router = createBrowserRouter([
         Component: AllToys,
         loader:()=> fetch("/toys.json"), 
       },
-      
-    //   {
-    //     path: "/category/:id",
-    //     element: <CategoryNews></CategoryNews>,
-    //     loader: () => fetch("/news.json"),
-    //   },
+      {
+        path: "/products/:id",
+        element: <ToyDetails></ToyDetails>,
+        loader: () => fetch("/toys.json"),
+      },
 
     ],
   },

@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaStar, FaRegHeart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const PopularToys = () => {
   const [toys, setToys] = useState([]);
+
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/toys.json")
@@ -12,6 +17,14 @@ const PopularToys = () => {
         setToys(featured);
       });
   }, []);
+
+  const handleViewDetails = (toyId) => {
+    if (!user) {
+      navigate("/auth/login", { state: { from: `/products/${toyId}` } });
+    } else {
+      navigate(`/products/${toyId}`);
+    }
+  };
 
   return (
     <div className="w-11/12 mx-auto my-12">
@@ -68,7 +81,7 @@ const PopularToys = () => {
             </div>
 
             <div className="text-center">
-              <button className="bg-[#ff7b54] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#ff946e] transition-all">
+              <button onClick={() => handleViewDetails(toy.toyId)} className="bg-[#ff7b54] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#ff946e] transition-all cursor-pointer" >
                 View More
               </button>
             </div>

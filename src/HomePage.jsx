@@ -53,7 +53,7 @@ const HomePage = () => {
                 <h3 className="text-lg font-semibold text-[#333]">
                   {toy.toyName}
                 </h3>
-                <p className="text-sm text-gray-600">${toy.price.toFixed(2)}</p>
+                <p className="text-sm text-gray-600 mb-4">${toy.price.toFixed(2)}</p>
               </div>
             </div>
           </SwiperSlide>
