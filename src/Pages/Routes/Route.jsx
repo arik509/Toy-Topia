@@ -6,6 +6,7 @@ import Login from "../../Login";
 import Register from "../../Register";
 import AuthLayout from "../../Layouts/AuthLayout";
 import ToyDetails from "../../ToyDetails";
+import Error from "../../Error";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <h2>Error 404</h2>,
+    element: <Error></Error>,
   },
 ]);
 
