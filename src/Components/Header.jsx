@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "../assets/topia.png";
 import { Link, NavLink } from "react-router";
 import { IoCart, IoMenu, IoClose } from "react-icons/io5";
+import Banner from "./Banner";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -22,23 +23,25 @@ const Header = () => {
             src={logo}
             alt="Toy Topia logo"
           />
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Toy Topia</h1>
+          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">
+            Toy Topia
+          </h1>
         </Link>
 
         <nav className="hidden md:flex gap-6 font-bold text-accent">
           <NavLink to="/" className="hover:underline">
             Home
           </NavLink>
-          <NavLink to="/about" className="hover:underline">
+          <NavLink to="/products" className="hover:underline">
             Shop
           </NavLink>
-          <NavLink to="/career" className="hover:underline">
+          <NavLink to="/" className="hover:underline">
             Pages
           </NavLink>
-          <NavLink to="/blog" className="hover:underline">
+          <NavLink to="/" className="hover:underline">
             Blog
           </NavLink>
-          <NavLink to="/contact" className="hover:underline">
+          <NavLink to="/" className="hover:underline">
             Contact
           </NavLink>
         </nav>
@@ -55,16 +58,16 @@ const Header = () => {
             <NavLink to="/" onClick={() => setMenuOpen(false)}>
               Home
             </NavLink>
-            <NavLink to="/about" onClick={() => setMenuOpen(false)}>
+            <NavLink to="/products" onClick={() => setMenuOpen(false)}>
               Shop
             </NavLink>
-            <NavLink to="/career" onClick={() => setMenuOpen(false)}>
+            <NavLink to="/" onClick={() => setMenuOpen(false)}>
               Pages
             </NavLink>
-            <NavLink to="/blog" onClick={() => setMenuOpen(false)}>
+            <NavLink to="/" onClick={() => setMenuOpen(false)}>
               Blog
             </NavLink>
-            <NavLink to="/contact" onClick={() => setMenuOpen(false)}>
+            <NavLink to="/" onClick={() => setMenuOpen(false)}>
               Contact
             </NavLink>
           </nav>

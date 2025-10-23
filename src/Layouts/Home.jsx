@@ -1,22 +1,25 @@
 import React from "react";
+import { Outlet, useLocation } from "react-router";
 import Navbar from "../Components/Navbar";
-import { Outlet } from "react-router";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
 import Banner from "../Components/Banner";
 
 const Home = () => {
+  const location = useLocation();
+
   return (
     <div>
       <header>
-        <Navbar></Navbar>
-        <Header></Header>
+        <Navbar />
+        <Header />
+        {/* Banner only on home page */}
+        {location.pathname === "/" && <Banner />}
       </header>
       <main>
-        <Banner></Banner>
-        <Outlet></Outlet>
+        <Outlet />
       </main>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

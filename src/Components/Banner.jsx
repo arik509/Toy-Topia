@@ -1,5 +1,6 @@
 import React from "react";
 import baby from "../assets/Play, learn, & grow!.png";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -14,9 +15,9 @@ const Banner = () => {
         <h2 className="text-white text-3xl md:text-5xl font-bold mb-6 drop-shadow-lg text-center">
           Play, Learn & Grow!
         </h2>
-        <button className="bg-[#ff7b54] hover:bg-[#ff5722] text-white font-semibold py-3 px-6 rounded-full transition">
+        <Link to="/products" className="bg-[#ff7b54] hover:bg-[#ff5722] text-white font-semibold py-3 px-6 rounded-full transition">
           Shop Now
-        </button>
+        </Link>
       </div>
     </div>
   );

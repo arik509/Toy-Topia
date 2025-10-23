@@ -23,11 +23,11 @@ const PopularToys = () => {
         {toys.map((toy) => (
           <div
             key={toy.toyId}
-            className="bg-white p-4 rounded-2xl shadow hover:shadow-lg transition-all duration-300 relative"
+            className="bg-[#fffaf5] p-4 rounded-2xl shadow hover:shadow-lg transition-all duration-300 relative "
           >
             {toy.isTrending && (
               <span className="absolute top-3 left-3 bg-[#ff7b54] text-white text-sm px-3 py-1 rounded-full">
-                TRENDING
+                SALE
               </span>
             )}
 

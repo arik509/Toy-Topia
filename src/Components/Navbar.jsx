@@ -4,7 +4,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 
 const Navbar = () => {
   return (
-    <div className="bg-[#B8E9F5] px-2 md:px-4 py-2">
+    <div className="bg-accent px-2 md:px-4 py-2">
       <div className="flex justify-between w-11/12 mx-auto ">
         <div className="flex flex-row gap-2 items-center">
           <TbTruckDelivery size={18}></TbTruckDelivery>
