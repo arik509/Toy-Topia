@@ -1,10 +1,11 @@
-import React, { use } from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "./Provider/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
-  const { createUser, setUser, updatedUser } = use(AuthContext);
-
+  const { createUser, setUser, updatedUser, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
@@ -14,26 +15,53 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-
+  
+    if (!/[A-Z]/.test(password)) {
+      toast.error("Password must contain at least 1 uppercase letter");
+      return;
+    }
+    if (!/[a-z]/.test(password)) {
+      toast.error("Password must contain at least 1 lowercase letter");
+      return;
+    }
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+  
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         updatedUser({ displayName: name, photoURL: photo })
           .then(() => {
             setUser({ ...user, displayName: name, photoURL: photo });
-            navigate("/");
+            toast.success("Registered successfully!");
+    
+            setTimeout(() => navigate("/"), 1500);
           })
           .catch((error) => {
-            console.error(error);
+            toast.error(error.message);
           });
       })
       .catch((error) => {
-        alert(error.message);
+        toast.error(error.message);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((user) => {
+        toast.success(`Welcome ${user.displayName || "User"}! Logged in with Google.`);
+        setTimeout(() => navigate("/"), 1500);
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   };
 
   return (
     <div>
+      <Toaster position="top-right" />
       <div className="w-11/12 mx-auto">
         <div className="my-[30px] text-[20px]">
           <Link to="/" className="font-bold">
@@ -42,48 +70,39 @@ const Register = () => {
           <span className="text-secondary">Register</span>
         </div>
       </div>
+
       <div className="flex justify-center min-h-screen items-center">
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
           <form onSubmit={handleRegister} className="card-body p-[70px]">
-            <h1 className="text-2xl font-bold mb-4 border-b-2 border-base-200 pb-6 ">
+            <h1 className="text-2xl font-bold mb-4 border-b-2 border-base-200 pb-6">
               Register your account
             </h1>
+
             <fieldset className="fieldset">
               <label className="label">Name</label>
-              <input
-                name="name"
-                type="text"
-                className="input"
-                placeholder="Your Name"
-                required
-              />
+              <input name="name" type="text" className="input" placeholder="Your Name" required />
+
               <label className="label">Photo URL</label>
-              <input
-                name="photo"
-                type="text"
-                className="input"
-                placeholder="Your Photo URL"
-                required
-              />
+              <input name="photo" type="text" className="input" placeholder="Your Photo URL" required />
+
               <label className="label">Email</label>
-              <input
-                name="email"
-                type="email"
-                className="input"
-                placeholder="Email"
-                required
-              />
+              <input name="email" type="email" className="input" placeholder="Email" required />
+
               <label className="label">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="input"
-                placeholder="Password"
-                required
-              />
+              <input name="password" type="password" className="input" placeholder="Password" required />
+
               <button type="submit" className="btn btn-neutral mt-4">
                 Register
               </button>
+
+              <button
+                type="button"
+                onClick={handleGoogleLogin}
+                className="btn btn-outline btn-neutral mt-4 w-full"
+              >
+               <FcGoogle size={24} /> Register with Google
+              </button>
+
               <p className="mt-2">
                 Already Have An Account?{" "}
                 <Link className="text-secondary" to="/auth/login">

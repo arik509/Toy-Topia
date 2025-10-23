@@ -76,7 +76,7 @@ const ToyDetailsCard = ({ toy }) => {
                   className="border p-2 rounded"
                 />
                 <button  type="submit" className="btn btn-secondary mt-2">
-                  Submit
+                  Try Now
                 </button>
               </form>
             ) : (

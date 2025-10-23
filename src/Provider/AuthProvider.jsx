@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "firebase/auth";
 import app from "../FireBase/firebase.config";
 
@@ -34,6 +36,28 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+ 
+  const googleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider)
+      .then((result) => {
+        
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        
+        const user = result.user;
+        setUser(user);
+        return user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData?.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        throw new Error(errorMessage);
+      });
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -51,13 +75,10 @@ const AuthProvider = ({ children }) => {
     loading,
     setLoading,
     updatedUser,
+    googleLogin,
   };
 
-  return (
-    <AuthContext value={AuthData}>
-      {children}
-    </AuthContext>
-  );
+  return <AuthContext.Provider value={AuthData}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;
