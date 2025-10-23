@@ -4,6 +4,8 @@ import { Link, NavLink } from "react-router";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AuthContext } from "../Provider/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+import userIcon from "../assets/8792047.png"
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,7 +14,7 @@ const Header = () => {
     // console.log("log out");
     logOut()
       .then(() => {
-        alert("You are logged Out");
+        toast.success("You are logged out!");
       })
       .catch((error) => {
         // console.log(error);
@@ -21,6 +23,7 @@ const Header = () => {
 
   return (
     <header className="bg-[#fffaf5] border-b border-gray-200 relative">
+        <Toaster position="top-right" />
       <div className="w-11/12 mx-auto py-4 flex justify-between items-center">
         <button
           className="md:hidden text-3xl text-accent"
@@ -61,7 +64,7 @@ const Header = () => {
         <div className="flex gap-4">
         <div className="relative group">
         <img
-          src={user? user.photoURL : <FaRegUserCircle></FaRegUserCircle>}
+          src={user? user.photoURL : userIcon}
           alt="User"
           className="w-10 h-10 rounded-full object-cover cursor-pointer"
         />
