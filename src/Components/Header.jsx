@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import logo from "../assets/topia.png";
 import { Link, NavLink } from "react-router";
 import { IoCart, IoMenu, IoClose } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
 import Banner from "./Banner";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logOut } = use(AuthContext);
 
   return (
     <header className="bg-[#fffaf5] border-b border-gray-200 relative">
@@ -46,10 +49,13 @@ const Header = () => {
           </NavLink>
         </nav>
 
-        <div className="flex items-center gap-2 text-accent font-bold">
-          <IoCart size={24} />
-          <span>Cart</span>
-        </div>
+        <Link
+          to="/auth/login"
+          className="flex items-center gap-2 text-accent font-bold"
+        >
+          <FaRegUserCircle />
+          Login
+        </Link>
       </div>
 
       {menuOpen && (
