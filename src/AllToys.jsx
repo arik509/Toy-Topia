@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import { AuthContext } from "./Provider/AuthProvider";
 
 const AllToys = () => {
@@ -28,7 +28,7 @@ const AllToys = () => {
   return (
     <div className="w-11/12 mx-auto">
       <div className="my-[30px] lg:my-[60px] text-[20px]">
-        Home / <span className="text-secondary">Products</span>
+        <Link to="/">Home</Link>  / <span className="text-secondary">Products</span>
       </div>
 
       <div className="grid grid-cols-12 gap-4">

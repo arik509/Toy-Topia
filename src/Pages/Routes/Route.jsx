@@ -7,6 +7,9 @@ import Register from "../../Register";
 import AuthLayout from "../../Layouts/AuthLayout";
 import ToyDetails from "../../ToyDetails";
 import Error from "../../Error";
+import PrivateRoute from "../../Provider/PrivateRoute";
+import Profile from "../../Profile";
+import Contact from "../../Contact";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +30,10 @@ const router = createBrowserRouter([
         element: <ToyDetails></ToyDetails>,
         loader: () => fetch("/toys.json"),
       },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
+      }
 
     ],
   },
@@ -43,6 +50,14 @@ const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+  },
+  {
+    path: "/profile",
+  element: (
+    <PrivateRoute>
+      <Profile></Profile>
+    </PrivateRoute>
+  )
   },
   {
     path: "/*",

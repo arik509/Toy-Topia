@@ -7,29 +7,29 @@ const Footer = () => {
     <footer className="footer mt-[60px] sm:footer-horizontal bg-base-200 text-base-content p-[30px] lg:p-[60px] lg:bg-contain bg-cover bg-center relative pl-[30px] lg:pl-[200px]"
     style={{ backgroundImage: `url(${footerImg})` }}>
       <aside>
-        <img src={logo} alt="" className="w-[100px] h-[100px]" />
+        <img src={logo} alt="" className="w-[200px] h-[150px]" />
         <p>
-          <span className="font-bold text-2xl">Toy Topia</span>
+          <span className="font-bold text-2xl text-center">Toy Topia</span>
           <br />
           Where fun meets learning
         </p>
       </aside>
       <nav>
-        <h6 className="footer-title">Services</h6>
+        <h6 className="footer-title font-bold">Services</h6>
         <a className="link link-hover">Branding</a>
         <a className="link link-hover">Design</a>
         <a className="link link-hover">Marketing</a>
         <a className="link link-hover">Advertisement</a>
       </nav>
       <nav>
-        <h6 className="footer-title">Company</h6>
+        <h6 className="footer-title font-extrabold">Company</h6>
         <a className="link link-hover">About us</a>
         <a className="link link-hover">Contact</a>
         <a className="link link-hover">Jobs</a>
         <a className="link link-hover">Press kit</a>
       </nav>
       <nav>
-        <h6 className="footer-title">Social</h6>
+        <h6 className="footer-title font-extrabold">Social</h6>
         <div className="grid grid-flow-col gap-4">
           <a>
             <svg
