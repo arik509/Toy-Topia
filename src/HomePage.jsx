@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import PopularToys from "./Components/PopularToys";
 
 const HomePage = () => {
   const [toys, setToys] = useState([]);
@@ -58,6 +59,10 @@ const HomePage = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      <div>
+        <PopularToys></PopularToys>
+      </div>
     </div>
   );
 };
