@@ -8,6 +8,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 const Login = () => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailForReset, setEmailForReset] = useState("");
   const { signIn, googleLogin } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -46,17 +47,15 @@ const Login = () => {
       <Toaster position="top-right" />
       <div className="w-11/12 mx-auto">
         <div className="my-[30px] text-[20px]">
-          <Link to="/" className="font-bold">
-            Home /
-          </Link>{" "}
+          <Link to="/" className="font-bold">Home /</Link>{" "}
           <span className="text-secondary">Login</span>
         </div>
       </div>
 
       <div className="flex justify-center min-h-screen items-center">
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-          <div className="card-body p-[70px]">
-            <h1 className="text-2xl font-bold mb-4 border-b-2 border-base-200 pb-6 ">
+        <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
+          <div className="card-body p-8">
+            <h1 className="text-2xl font-bold mb-4 border-b-2 border-base-200 pb-6">
               Login Your Account
             </h1>
 
@@ -68,6 +67,8 @@ const Login = () => {
                   type="email"
                   className="input input-bordered w-full"
                   placeholder="Email"
+                  value={emailForReset}
+                  onChange={(e) => setEmailForReset(e.target.value)}
                   required
                 />
 
@@ -97,6 +98,16 @@ const Login = () => {
               </fieldset>
             </form>
 
+            <p className="mt-2 text-left">
+              <Link
+                className="text-secondary hover:underline"
+                to="/auth/forgot-password"
+                state={{ email: emailForReset }}
+              >
+                Forgot Password?
+              </Link>
+            </p>
+
             <div className="divider">OR</div>
 
             <button
@@ -108,9 +119,7 @@ const Login = () => {
 
             <p className="mt-4 text-center">
               Don't Have An Account?{" "}
-              <Link className="text-secondary" to="/auth/register">
-                Register
-              </Link>
+              <Link className="text-secondary" to="/auth/register">Register</Link>
             </p>
           </div>
         </div>

@@ -28,13 +28,12 @@ const AllToys = () => {
   return (
     <div className="w-11/12 mx-auto">
       <div className="my-[30px] lg:my-[60px] text-[20px]">
-        <Link to="/">Home</Link>  / <span className="text-secondary">Products</span>
+        <Link to="/">Home</Link> /{" "}
+        <span className="text-secondary">Products</span>
       </div>
 
       <div className="grid grid-cols-12 gap-4">
-        
         <div className="col-span-12 md:col-span-3">
-          
           <div className="md:hidden mb-4">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -66,33 +65,38 @@ const AllToys = () => {
           </div>
         </div>
 
-        
-        <div className="col-span-12 md:col-span-9 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredToys.map((toy) => (
-            <div
-              key={toy.toyId}
-              className="shadow-sm bg-[#fffaf5] rounded p-4 hover:shadow-lg transition flex flex-col items-start h-[380px]"
-            >
-              <img
-                src={toy.pictureURL}
-                alt={toy.toyName}
-                className="w-full h-48 object-contain mb-2"
-              />
-              <h3 className="font-semibold">{toy.toyName}</h3>
-              <p className="text-sm text-gray-600">Seller: {toy.sellerName}</p>
-              <p className="text-sm text-gray-600">Price: ${toy.price}</p>
-              <p className="text-sm text-gray-600 mb-4">
-                Rating: {toy.rating} ⭐
-              </p>
+        <div className="col-span-12 md:col-span-9">
+          <h2 className="font-bold text-2xl mb-4">{selectedCategory} Toys</h2>
 
-              <button
-                onClick={() => handleViewDetails(toy.toyId)}
-                className="bg-secondary text-white py-2 px-4 rounded hover:bg-[#e59970] transition mt-auto"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredToys.map((toy) => (
+              <div
+                key={toy.toyId}
+                className="shadow-sm bg-[#fffaf5] rounded p-4 hover:shadow-lg transition flex flex-col items-start h-[380px]"
               >
-                View Details
-              </button>
-            </div>
-          ))}
+                <img
+                  src={toy.pictureURL}
+                  alt={toy.toyName}
+                  className="w-full h-48 object-contain mb-2"
+                />
+                <h3 className="font-semibold">{toy.toyName}</h3>
+                <p className="text-sm text-gray-600">
+                  Seller: {toy.sellerName}
+                </p>
+                <p className="text-sm text-gray-600">Price: ${toy.price}</p>
+                <p className="text-sm text-gray-600 mb-4">
+                  Rating: {toy.rating} ⭐
+                </p>
+
+                <button
+                  onClick={() => handleViewDetails(toy.toyId)}
+                  className="bg-secondary text-white py-2 px-4 rounded hover:bg-[#e59970] transition mt-auto"
+                >
+                  View Details
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

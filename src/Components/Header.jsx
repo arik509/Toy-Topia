@@ -50,12 +50,6 @@ const Header = () => {
           <NavLink to="/products" className="hover:underline">
             Shop
           </NavLink>
-          <NavLink to="/" className="hover:underline">
-            Pages
-          </NavLink>
-          <NavLink to="/" className="hover:underline">
-            Blog
-          </NavLink>
           <NavLink to="/contact" className="hover:underline">
             Contact
           </NavLink>
@@ -94,13 +88,7 @@ const Header = () => {
             <NavLink to="/products" onClick={() => setMenuOpen(false)}>
               Shop
             </NavLink>
-            <NavLink to="/" onClick={() => setMenuOpen(false)}>
-              Pages
-            </NavLink>
-            <NavLink to="/" onClick={() => setMenuOpen(false)}>
-              Blog
-            </NavLink>
-            <NavLink to="/" onClick={() => setMenuOpen(false)}>
+            <NavLink to="/contact" onClick={() => setMenuOpen(false)}>
               Contact
             </NavLink>
           </nav>

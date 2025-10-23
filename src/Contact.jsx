@@ -2,10 +2,14 @@ import React from "react";
 import { FaPhone } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
+import { Link } from "react-router";
 
 const Contact = () => {
   return (
     <div className="w-11/12 mx-auto my-12">
+        <div className="my-[30px] lg:my-[60px] text-[20px]">
+        <Link to="/">Home</Link>  / <span className="text-secondary">Contact</span>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-base-100 p-6 shadow-md rounded-lg flex flex-col items-center text-center space-y-2">
           <FaPhone size={28}></FaPhone>
