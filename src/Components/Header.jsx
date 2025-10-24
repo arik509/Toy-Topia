@@ -44,17 +44,53 @@ const Header = () => {
         </Link>
 
         <nav className="hidden md:flex gap-6 font-bold text-accent">
-          <NavLink to="/" className="hover:underline">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-[20px] text-orange-600 font-bold" : 
+              "hover:text-[18px] "
+            }
+          >
             Home
           </NavLink>
-          <NavLink to="/products" className="hover:underline">
-              Shop
-            </NavLink>
-          <NavLink to="/contact" className="hover:underline">
+
+          <NavLink
+            to="/products"
+            className={({ isActive }) =>
+              isActive ? "text-[20px] text-orange-600 font-bold" : 
+              "hover:text-[18px] "
+            }
+          >
+            Shop
+          </NavLink>
+
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "text-[20px] text-orange-600 font-bold" : 
+              "hover:text-[18px] "
+            }
+          >
             Contact
           </NavLink>
-          <NavLink to="/cart" className="hover:underline">
+
+          <NavLink
+            to="/cart"
+            className={({ isActive }) =>
+              isActive ? "text-[20px] text-orange-600 font-bold" : 
+              "hover:text-[18px] "
+            }
+          >
             Cart
+          </NavLink>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? "text-[20px] text-orange-600 font-bold" : 
+              "hover:text-[18px] "
+            }
+          >
+            Profile
           </NavLink>
         </nav>
 
@@ -93,6 +129,12 @@ const Header = () => {
             </NavLink>
             <NavLink to="/contact" onClick={() => setMenuOpen(false)}>
               Contact
+            </NavLink>
+            <NavLink to="/profile" onClick={() => setMenuOpen(false)}>
+              Profile
+            </NavLink>
+            <NavLink to="/cart" onClick={() => setMenuOpen(false)}>
+              Cart
             </NavLink>
           </nav>
         </div>

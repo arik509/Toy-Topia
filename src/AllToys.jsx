@@ -90,7 +90,7 @@ const AllToys = () => {
 
                 <button
                   onClick={() => handleViewDetails(toy.toyId)}
-                  className="bg-secondary text-white py-2 px-4 rounded hover:bg-[#e59970] transition mt-auto"
+                  className="bg-secondary text-white py-2 px-4 rounded hover:bg-orange-600 transition mt-auto cursor-pointer"
                 >
                   View Details
                 </button>

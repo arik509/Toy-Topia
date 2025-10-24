@@ -6,18 +6,15 @@ export const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // 🔄 Load cart from localStorage
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("toytopia-cart")) || [];
     setCart(storedCart);
   }, []);
 
-  // 💾 Save to localStorage when updated
   useEffect(() => {
     localStorage.setItem("toytopia-cart", JSON.stringify(cart));
   }, [cart]);
 
-  // ➕ Add to cart
   const addToCart = (toy) => {
     const exists = cart.find((item) => item.toyId === toy.toyId);
     if (exists) {
@@ -29,7 +26,6 @@ const CartProvider = ({ children }) => {
     toast.success(`${toy.toyName} added to cart!`);
   };
 
-  // ❌ Remove item
   const removeFromCart = (id) => {
     const updatedCart = cart.filter((item) => item.toyId !== id);
     setCart(updatedCart);

@@ -14,7 +14,7 @@ createRoot(document.getElementById("root")).render(
         <Suspense
           fallback={
             <div className="flex justify-center items-center min-h-screen">
-              Loading...
+              <span className="loading loading-bars loading-xl"></span>
             </div>
           }
         >

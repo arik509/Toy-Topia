@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import bannerImg from "../assets/Play, learn, & grow!.png"; // change path if needed
+import bannerImg from "../assets/Play, learn, & grow!.png"; 
+import { Link } from "react-router";
 
 const HeroSection = () => {
   useEffect(() => {
@@ -14,14 +15,14 @@ const HeroSection = () => {
 
   return (
     <div className="relative w-full mb-16 overflow-hidden">
-      {/* Background image */}
+      
       <img
         src={bannerImg}
         alt="Hero Banner"
         className="w-full h-[80vh] object-cover object-center"
       />
 
-      {/* Overlay text and button */}
+      
       <div
         className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-10 md:px-20"
         data-aos="fade-right"
@@ -33,13 +34,13 @@ const HeroSection = () => {
           Discover our fun and educational toys designed to inspire creativity
           and joy in every child.
         </p>
-        <button
+        <Link to="/products"
           data-aos="zoom-in"
           data-aos-delay="300"
           className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full transition-all"
         >
           Shop Now
-        </button>
+        </Link>
       </div>
     </div>
   );

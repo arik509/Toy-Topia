@@ -2,11 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./Provider/AuthProvider";
 import { getAuth, updateProfile } from "firebase/auth";
 import toast, { Toaster } from "react-hot-toast";
-import { FaArrowLeft, FaPen } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import Navbar from "./Components/Navbar";
 
-const Profile = () => {
+const UpdateProfile = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   const [name, setName] = useState("");
@@ -53,7 +53,7 @@ const Profile = () => {
     <div>
         <Navbar></Navbar>
         <div className="my-[30px] text-[20px] w-11/12 mx-auto">
-        <Link to="/">Home</Link>  / <span className="text-secondary">profile</span>
+        <Link to="/">Home</Link> / <Link to="/profile">Profile</Link> / <span className="text-secondary">Update Profile</span>
       </div>
       <div className="flex justify-center items-center min-h-screen bg-base-200">
         <Toaster position="top-right" />
@@ -67,14 +67,27 @@ const Profile = () => {
             alt={auth.currentUser?.displayName || "User"}
             className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
           />
-          <p className="text-center mb-4">{auth.currentUser?.displayName}</p>
+          <p className="text-center mb-4">{auth.currentUser?.email}</p>
 
-          <p><span className="font-bold">Email: </span>{auth.currentUser?.email}</p>
-          <p><span className="font-bold">Photo URL: </span>{auth.currentUser?.photoURL}</p>
-
-            <Link to="/profile/update-profile" type="submit" className="btn btn-secondary w-full">
-             <FaPen></FaPen> Edit Profile
-            </Link>
+          <form onSubmit={handleUpdate} className="flex flex-col gap-4">
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input input-bordered w-full"
+              placeholder="Name"
+            />
+            <input
+              type="text"
+              value={photo}
+              onChange={(e) => setPhoto(e.target.value)}
+              className="input input-bordered w-full"
+              placeholder="Photo URL"
+            />
+            <button type="submit" className="btn btn-secondary w-full">
+              Save Changes
+            </button>
+          </form>
 
           <button
             onClick={() => navigate(-1)}
@@ -88,4 +101,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UpdateProfile;

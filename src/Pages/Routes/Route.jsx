@@ -12,6 +12,7 @@ import Profile from "../../Profile";
 import Contact from "../../Contact";
 import ForgotPassword from "../../ForgotPassword";
 import Cart from "../../Cart";
+import UpdateProfile from "../../UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/products",
         Component: AllToys,
-        loader:()=> fetch("/toys.json"), 
+        loader: () => fetch("/toys.json"),
+        hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
       },
       {
         path: "/products/:id",
         element: <ToyDetails></ToyDetails>,
         loader: () => fetch("/toys.json"),
+        hydrateFallbackElement: <span className="loading loading-bars loading-xl"></span>
       },
       {
         path: "/cart",
@@ -38,9 +41,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: <Contact></Contact>
-      }
-
+        element: <Contact></Contact>,
+      },
     ],
   },
   {
@@ -57,17 +59,25 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth/forgot-password",
-        element: <ForgotPassword></ForgotPassword>
-      }
+        element: <ForgotPassword></ForgotPassword>,
+      },
     ],
   },
   {
     path: "/profile",
-  element: (
-    <PrivateRoute>
-      <Profile></Profile>
-    </PrivateRoute>
-  )
+    element: (
+      <PrivateRoute>
+        <Profile></Profile>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/profile/update-profile",
+    element: (
+      <PrivateRoute>
+        <UpdateProfile></UpdateProfile>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/*",

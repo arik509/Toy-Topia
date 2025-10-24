@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { CartContext } from "../src/Provider/CartProvider";
-// import { CartContext } from "../Provider/CartProvider";
-// import { CartContext } from "../Provider/CartContext";
+
 
 const ToyDetailsCard = ({ toy }) => {
   const [showForm, setShowForm] = useState(false);
