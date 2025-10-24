@@ -8,7 +8,7 @@ const ToyDetails = () => {
   const data = useLoaderData();
   const { id } = useParams();
   const [toy, setToy] = useState({});
-  console.log(data, id, toy);
+//   console.log(data, id, toy);
 
   useEffect(() => {
     const toyDetails = data.find((singleToy) => singleToy.toyId == id);
