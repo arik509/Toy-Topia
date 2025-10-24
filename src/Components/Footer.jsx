@@ -4,7 +4,7 @@ import logo from "../assets/topia.png";
 
 const Footer = () => {
   return (
-    <footer className="footer mt-[60px] sm:footer-horizontal bg-base-200 text-base-content p-[30px] lg:p-[60px] lg:bg-contain bg-cover bg-center relative pl-[30px] lg:pl-[200px]"
+    <footer className="footer mt-[60px] sm:footer-horizontal bg-base-200 text-base-content p-[30px] lg:p-[60px] bg-no-repeat bg-cover bg-center relative pl-[30px] lg:pl-[200px]"
     style={{ backgroundImage: `url(${footerImg})` }}>
       <aside>
         <img src={logo} alt="" className="w-[200px] h-[150px]" />
