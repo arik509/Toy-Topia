@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { CartContext } from "../src/Provider/CartProvider";
+// import { CartContext } from "../Provider/CartProvider";
+// import { CartContext } from "../Provider/CartContext";
 
 const ToyDetailsCard = ({ toy }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { addToCart } = useContext(CartContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,7 +25,6 @@ const ToyDetailsCard = ({ toy }) => {
     }, 2000);
   };
 
-
   return (
     <div className="flex flex-col md:flex-row gap-[20px] md:gap-[40px] bg-primary p-4 shadow-sm items-center justify-center relative">
       <div>
@@ -37,17 +40,26 @@ const ToyDetailsCard = ({ toy }) => {
         <p className="text-secondary flex gap-2 items-center">
           {toy.rating} <FaStar size={16} />
         </p>
-        <button
-          className="btn btn-secondary"
-          onClick={() => setShowForm(true)}
-        >
-          Try Now
-        </button>
+
+        <div className="flex gap-3">
+          <button
+            className="btn btn-secondary"
+            onClick={() => addToCart(toy)}
+          >
+            Add to Cart
+          </button>
+          <button
+            className="btn btn-outline"
+            onClick={() => setShowForm(true)}
+          >
+            Try Now
+          </button>
+        </div>
       </div>
 
       {showForm && (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="bg-primary border border-gray-300 rounded-md p-6 shadow-lg w-80">
+          <div className="bg-primary border border-gray-300 rounded-md p-6 shadow-lg w-80 relative">
             <button
               className="absolute top-2 right-3 text-gray-600"
               onClick={() => setShowForm(false)}
@@ -75,7 +87,7 @@ const ToyDetailsCard = ({ toy }) => {
                   required
                   className="border p-2 rounded"
                 />
-                <button  type="submit" className="btn btn-secondary mt-2">
+                <button type="submit" className="btn btn-secondary mt-2">
                   Try Now
                 </button>
               </form>

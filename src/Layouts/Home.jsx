@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
-import Banner from "../Components/Banner";
+import HeroSection from "../Components/HeroSection";
 
 const Home = () => {
   const location = useLocation();
@@ -14,7 +14,7 @@ const Home = () => {
         <Navbar />
         <Header />
        
-        {location.pathname === "/" && <Banner />}
+        {location.pathname === "/" && <HeroSection></HeroSection>}
       </header>
       <main>
         <Outlet />

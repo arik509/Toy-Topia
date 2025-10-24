@@ -1,14 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css';
-import router from './Pages/Routes/Route.jsx';
-import { RouterProvider } from "react-router/dom";
-import AuthProvider from './Provider/AuthProvider.jsx';
+import { StrictMode, Suspense } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import router from "./Pages/Routes/Route.jsx";
+import { RouterProvider } from "react-router";
+import AuthProvider from "./Provider/AuthProvider.jsx";
+import CartProvider from "./Provider/CartProvider.jsx";
+import { CartContext } from "./Provider/CartProvider.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <CartProvider>
+        <Suspense
+          fallback={
+            <div className="flex justify-center items-center min-h-screen">
+              Loading...
+            </div>
+          }
+        >
+          <RouterProvider router={router} />
+        </Suspense>
+      </CartProvider>
     </AuthProvider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

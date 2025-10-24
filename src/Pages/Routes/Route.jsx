@@ -11,6 +11,7 @@ import PrivateRoute from "../../Provider/PrivateRoute";
 import Profile from "../../Profile";
 import Contact from "../../Contact";
 import ForgotPassword from "../../ForgotPassword";
+import Cart from "../../Cart";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
         path: "/products/:id",
         element: <ToyDetails></ToyDetails>,
         loader: () => fetch("/toys.json"),
+      },
+      {
+        path: "/cart",
+        element: <Cart></Cart>,
       },
       {
         path: "/contact",

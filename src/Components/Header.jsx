@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { Suspense, use, useState } from "react";
 import logo from "../assets/topia.png";
 import { Link, NavLink, useNavigate } from "react-router";
 import { IoMenu, IoClose } from "react-icons/io5";
@@ -48,10 +48,13 @@ const Header = () => {
             Home
           </NavLink>
           <NavLink to="/products" className="hover:underline">
-            Shop
-          </NavLink>
+              Shop
+            </NavLink>
           <NavLink to="/contact" className="hover:underline">
             Contact
+          </NavLink>
+          <NavLink to="/cart" className="hover:underline">
+            Cart
           </NavLink>
         </nav>
 
