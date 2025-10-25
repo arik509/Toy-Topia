@@ -1,12 +1,15 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 import { FaPhone } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 import { MdOutlineEmail } from "react-icons/md";
 import { Link } from "react-router";
+import DynamicHelmet from "./DynamicHelmet";
 
 const Contact = () => {
   return (
     <div className="w-11/12 mx-auto my-12">
+      <DynamicHelmet title="Contact"></DynamicHelmet>
         <div className="my-[30px] lg:my-[60px] text-[20px]">
         <Link to="/">Home</Link>  / <span className="text-secondary">Contact</span>
       </div>

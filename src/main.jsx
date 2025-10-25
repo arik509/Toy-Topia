@@ -6,21 +6,24 @@ import { RouterProvider } from "react-router";
 import AuthProvider from "./Provider/AuthProvider.jsx";
 import CartProvider from "./Provider/CartProvider.jsx";
 import { CartContext } from "./Provider/CartProvider.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <CartProvider>
-        <Suspense
-          fallback={
-            <div className="flex justify-center items-center min-h-screen">
-              <span className="loading loading-bars loading-xl"></span>
-            </div>
-          }
-        >
-          <RouterProvider router={router} />
-        </Suspense>
-      </CartProvider>
-    </AuthProvider>
+    <HelmetProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Suspense
+            fallback={
+              <div className="flex justify-center items-center min-h-screen">
+                <span className="loading loading-bars loading-xl"></span>
+              </div>
+            }
+          >
+            <RouterProvider router={router} />
+          </Suspense>
+        </CartProvider>
+      </AuthProvider>
+    </HelmetProvider>
   </StrictMode>
 );

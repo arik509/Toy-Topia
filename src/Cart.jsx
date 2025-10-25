@@ -2,13 +2,19 @@ import React, { useContext } from "react";
 import { CartContext } from "./Provider/CartProvider";
 import { TbX } from "react-icons/tb";
 import { Link } from "react-router";
+import DynamicHelmet from './DynamicHelmet';
 
 const Cart = () => {
   const { cart, removeFromCart } = useContext(CartContext);
+  
+  const pageTitle = cart.length === 0 
+    ? "Empty Cart" 
+    : `Shopping Cart (${cart.length} Items)`;
 
   if (cart.length === 0) {
     return (
       <div className="min-h-[70vh] flex flex-col justify-center items-center">
+        <DynamicHelmet title={pageTitle} />
         <h1 className="text-2xl font-bold text-gray-600">
           Your cart is empty 🛒
         </h1>
@@ -18,6 +24,8 @@ const Cart = () => {
 
   return (
     <div>
+      <DynamicHelmet title={pageTitle} />
+      
       <div className="w-11/12 mx-auto">
         <div className="my-[30px] text-[20px]">
           <Link to="/" className="font-bold">

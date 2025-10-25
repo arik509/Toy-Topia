@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router";
+import { Helmet } from "react-helmet-async"; // Helmet ইমপোর্ট
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -13,8 +14,7 @@ const Home = () => {
       <header>
         <Navbar />
         <Header />
-       
-        {location.pathname === "/" && <HeroSection></HeroSection>}
+        {location.pathname === "/" && <HeroSection />}
       </header>
       <main>
         <Outlet />

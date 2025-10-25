@@ -10,6 +10,9 @@ import PopularToys from "./Components/PopularToys";
 import img1 from "./assets/img1.png"
 import img2 from "./assets/2nd.png"
 import { Link } from "react-router";
+import DynamicHelmet from "./DynamicHelmet";
+
+
 
 const HomePage = () => {
   const [toys, setToys] = useState([]);
@@ -30,6 +33,7 @@ const HomePage = () => {
 
   return (
     <div className="w-11/12 mx-auto my-[40px] animate-pageFade">
+      <DynamicHelmet title="Home" />
       <h2 data-aos="fade-up" className="text-3xl font-bold text-center mb-6">
         Our Collections
       </h2>
@@ -65,7 +69,7 @@ const HomePage = () => {
           <SwiperSlide key={toy.toyId}>
             <div
               data-aos="zoom-in"
-              className="bg-[#fffaf5] p-[40px] rounded-2xl shadow-md overflow-hidden
+              className="bg-[#fffaf5] p-[40px] rounded-2xl shadow-md
               hover:shadow-[0_0_20px_rgba(255,140,0,0.5)]
               transition-all duration-500 flex flex-col items-center hover:scale-[1.03]"
             >

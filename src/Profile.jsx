@@ -5,6 +5,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaArrowLeft, FaPen } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import Navbar from "./Components/Navbar";
+import { Helmet } from "react-helmet-async";
+import DynamicHelmet from "./DynamicHelmet";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -51,6 +53,7 @@ const Profile = () => {
 
   return (
     <div>
+      <DynamicHelmet title="Profile"></DynamicHelmet>
         <Navbar></Navbar>
         <div className="my-[30px] text-[20px] w-11/12 mx-auto">
         <Link to="/">Home</Link>  / <span className="text-secondary">profile</span>

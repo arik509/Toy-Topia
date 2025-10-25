@@ -1,4 +1,4 @@
-import React, { Suspense, use, useState } from "react";
+import React, { Suspense, use, useContext, useState } from "react";
 import logo from "../assets/topia.png";
 import { Link, NavLink, useNavigate } from "react-router";
 import { IoMenu, IoClose } from "react-icons/io5";
@@ -9,7 +9,7 @@ import userIcon from "../assets/8792047.png";
 const Header = () => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logOut } = use(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const handleLogout = () => {
     // console.log("log out");
     logOut()

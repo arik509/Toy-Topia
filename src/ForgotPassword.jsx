@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router";
+import DynamicHelmet from "./DynamicHelmet";
 
 const ForgotPassword = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const ForgotPassword = () => {
 
   return (
     <div>
+      <DynamicHelmet title="Login-Forgot Password"></DynamicHelmet>
       <div className="my-[30px] lg:my-[60px] text-[20px]">
         <Link to="/">Home</Link> /{" "}
         <span className="text-secondary">Reset Password</span>

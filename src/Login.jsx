@@ -4,6 +4,7 @@ import { AuthContext } from "./Provider/AuthProvider";
 import toast, { Toaster } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import DynamicHelmet from "./DynamicHelmet";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -44,6 +45,7 @@ const Login = () => {
 
   return (
     <div>
+      <DynamicHelmet title="Login"></DynamicHelmet>
       <Toaster position="top-right" />
       <div className="w-11/12 mx-auto">
         <div className="my-[30px] text-[20px]">
