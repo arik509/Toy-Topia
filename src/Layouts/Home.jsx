@@ -1,6 +1,5 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router";
-import { Helmet } from "react-helmet-async"; // Helmet ইমপোর্ট
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
@@ -12,14 +11,14 @@ const Home = () => {
   return (
     <div>
       <header>
-        <Navbar />
-        <Header />
+        <Navbar></Navbar>
+        <Header></Header>
         {location.pathname === "/" && <HeroSection />}
       </header>
       <main>
-        <Outlet />
+        <Outlet></Outlet>
       </main>
-      <Footer />
+      <Footer></Footer>
     </div>
   );
 };

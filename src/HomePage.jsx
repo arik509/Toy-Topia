@@ -133,7 +133,7 @@ const HomePage = () => {
       </Swiper>
 
       <div>
-        <PopularToys />
+        <PopularToys></PopularToys>
       </div>
 
       <div
