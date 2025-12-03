@@ -16,7 +16,7 @@ const Header = () => {
     const activeClass = "text-[20px] text-orange-600 font-bold";
     const baseClass = "hover:text-[18px]";
 
-    // Sticky navbar on scroll
+    
     useEffect(() => {
         const stickNavbar = () => {
             if (window !== undefined) {
@@ -57,7 +57,7 @@ const Header = () => {
                 <Toaster position="top-right" />
                 <div className="w-11/12 mx-auto py-4 flex justify-between items-center">
                     <button
-                        className="md:hidden text-3xl text-accent"
+                        className="md:hidden text-3xl text-accent relative z-50"
                         onClick={() => setMenuOpen(!menuOpen)}
                     >
                         {menuOpen ? <IoClose /> : <IoMenu />}
@@ -104,7 +104,7 @@ const Header = () => {
                             Contact
                         </Link>
 
-                        {user && (
+                        {user && (-
                             <>
                                 <NavLink
                                     to="/cart"
@@ -131,7 +131,7 @@ const Header = () => {
                                     className="w-10 h-10 rounded-full object-cover cursor-pointer"
                                     onClick={() => navigate("/profile")}
                                 />
-                                <span className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
+                                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">
                                     {user?.displayName || "User"}
                                 </span>
                             </div>
@@ -147,33 +147,64 @@ const Header = () => {
                         )}
                     </div>
                 </div>
-
-                {menuOpen && (
-                    <div className="md:hidden absolute left-0 top-full bg-[#fffaf5] border-t border-gray-200 w-full py-4 shadow-md animate-fadeIn z-50">
-                        <nav className="flex flex-col items-start gap-3 font-semibold text-accent px-6">
-                            <NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
-                            <NavLink to="/products" onClick={() => setMenuOpen(false)}>All Items</NavLink>
-                            <NavLink to="/about" onClick={() => setMenuOpen(false)}>About Us</NavLink>
-
-                            <Link 
-                                to="/contact" 
-                                onClick={(e) => {setMenuOpen(false); handleViewContact(e);}}
-                                className={isContactActive ? activeClass : baseClass}
-                            >
-                                Contact
-                            </Link>
-
-                            {user && (
-                                <>
-                                    <NavLink to="/profile" onClick={() => setMenuOpen(false)}>Profile</NavLink>
-                                    <NavLink to="/cart" onClick={() => setMenuOpen(false)}>Cart</NavLink>
-                                </>
-                            )}
-                        </nav>
-                    </div>
-                )}
             </header>
-            {stickyClass && <div className="h-[90px]"></div>}
+
+            {menuOpen && (
+                <div className="md:hidden fixed left-0 right-0 top-20 bg-[#fffaf5] border-t border-b border-gray-200 w-full py-4 shadow-lg z-40">
+                    <nav className="flex flex-col items-start gap-4 font-semibold text-accent px-6">
+                        <NavLink 
+                            to="/" 
+                            onClick={() => setMenuOpen(false)} 
+                            className={({ isActive }) => (isActive ? "text-orange-600 font-bold" : "")}
+                        >
+                            Home
+                        </NavLink>
+                        <NavLink 
+                            to="/products" 
+                            onClick={() => setMenuOpen(false)} 
+                            className={({ isActive }) => (isActive ? "text-orange-600 font-bold" : "")}
+                        >
+                            All Items
+                        </NavLink>
+                        <NavLink 
+                            to="/about" 
+                            onClick={() => setMenuOpen(false)} 
+                            className={({ isActive }) => (isActive ? "text-orange-600 font-bold" : "")}
+                        >
+                            About Us
+                        </NavLink>
+
+                        <Link 
+                            to="/contact" 
+                            onClick={(e) => {setMenuOpen(false); handleViewContact(e);}}
+                            className={isContactActive ? "text-orange-600 font-bold" : ""}
+                        >
+                            Contact
+                        </Link>
+
+                        {user && (
+                            <>
+                                <NavLink 
+                                    to="/profile" 
+                                    onClick={() => setMenuOpen(false)} 
+                                    className={({ isActive }) => (isActive ? "text-orange-600 font-bold" : "")}
+                                >
+                                    Profile
+                                </NavLink>
+                                <NavLink 
+                                    to="/cart" 
+                                    onClick={() => setMenuOpen(false)} 
+                                    className={({ isActive }) => (isActive ? "text-orange-600 font-bold" : "")}
+                                >
+                                    Cart
+                                </NavLink>
+                            </>
+                        )}
+                    </nav>
+                </div>
+            )}
+
+            {stickyClass && <div className="h-[90px] md:h-[106px]"></div>}
         </>
     );
 };
