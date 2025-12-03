@@ -1,90 +1,96 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "./Provider/AuthProvider";
-import { getAuth, updateProfile } from "firebase/auth";
-import toast, { Toaster } from "react-hot-toast";
-import { FaArrowLeft, FaPen } from "react-icons/fa";
+import { getAuth } from "firebase/auth";
+import { Toaster } from "react-hot-toast";
+import { FaPen, FaEnvelope, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-import Navbar from "./Components/Navbar";
-import { Helmet } from "react-helmet-async";
 import DynamicHelmet from "./DynamicHelmet";
 
 const Profile = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(AuthContext);
-  const [name, setName] = useState("");
-  const [photo, setPhoto] = useState("");
+  const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
   const auth = getAuth();
 
   useEffect(() => {
     if (auth.currentUser) {
-      setName(auth.currentUser.displayName || "");
-      setPhoto(auth.currentUser.photoURL || "");
+      setLoading(false);
     }
-    setLoading(false);
   }, [auth.currentUser]);
-
-  const handleUpdate = (e) => {
-    e.preventDefault();
-
-    if (!auth.currentUser) {
-      toast.error("User not logged in!");
-      return;
-    }
-
-    updateProfile(auth.currentUser, { displayName: name, photoURL: photo })
-      .then(() => {
-        setUser({ ...auth.currentUser }); // update context with latest user
-        toast.success("Profile updated successfully!");
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      });
-  };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        Loading...
+        <div className="text-xl text-gray-600">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div>
-      <DynamicHelmet title="Profile"></DynamicHelmet>
-        <Navbar></Navbar>
-        <div className="my-[30px] text-[20px] w-11/12 mx-auto">
-        <Link to="/">Home</Link>  / <span className="text-secondary">profile</span>
-      </div>
-      <div className="flex justify-center items-center min-h-screen bg-base-200">
-        <Toaster position="top-right" />
-        <div className="card w-full max-w-md p-8 shadow-lg flex flex-col gap-4 bg-white">
-          <h1 className="text-2xl font-bold mb-4 text-center">My Profile</h1>
+    <div className="min-h-screen bg-gray-50">
+      <DynamicHelmet title="Profile" />
+      <Toaster position="top-right" />
+      
+      <div className="w-11/12 mx-auto">
+        <div className="my-8 text-lg">
+          <Link to="/" className="text-gray-600 hover:text-[#ff7b54] transition">
+            Home
+          </Link>
+          <span className="mx-2 text-gray-400">/</span>
+          <span className="text-secondary font-semibold">Profile</span>
+        </div>
 
-          <img
-            src={
-              auth.currentUser?.photoURL || "https://via.placeholder.com/150"
-            }
-            alt={auth.currentUser?.displayName || "User"}
-            className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-          />
-          <p className="text-center mb-4">{auth.currentUser?.displayName}</p>
+        <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-md p-8 mb-10">
+          <h1 className="text-3xl font-bold mb-8 text-gray-800">My Profile</h1>
 
-          <p><span className="font-bold">Email: </span>{auth.currentUser?.email}</p>
-          <p><span className="font-bold">Photo URL: </span>{auth.currentUser?.photoURL}</p>
+          <div className="flex flex-col items-center mb-8">
+            <img
+              src={auth.currentUser?.photoURL || "https://via.placeholder.com/150"}
+              alt={auth.currentUser?.displayName || "User"}
+              className="w-32 h-32 rounded-full object-cover border-4 border-gray-100 shadow-lg mb-4"
+            />
+            <h2 className="text-2xl font-bold text-gray-800">
+              {auth.currentUser?.displayName || "User"}
+            </h2>
+          </div>
 
-            <Link to="/profile/update-profile" type="submit" className="btn btn-secondary w-full">
-             <FaPen></FaPen> Edit Profile
+          <div className="space-y-4 mb-8">
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+              <FaUser className="text-gray-500 mt-1" />
+              <div className="flex-1">
+                <p className="text-sm text-gray-500 mb-1">Display Name</p>
+                <p className="text-gray-800 font-medium">
+                  {auth.currentUser?.displayName || "Not set"}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+              <FaEnvelope className="text-gray-500 mt-1" />
+              <div className="flex-1">
+                <p className="text-sm text-gray-500 mb-1">Email Address</p>
+                <p className="text-gray-800 font-medium">
+                  {auth.currentUser?.email}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              to="/profile/update-profile"
+              className="flex-1 bg-linear-to-r from-[#ff7b54] to-[#ff946e] text-white py-3 px-6 rounded-lg font-semibold hover:from-[#ff946e] hover:to-[#ff7b54] transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            >
+              <FaPen /> Edit Profile
             </Link>
-
-          <button
-            onClick={() => navigate(-1)}
-            className="btn btn-outline mt-4 flex items-center justify-center gap-2"
-          >
-            <FaArrowLeft /> Go Back
-          </button>
+            <button
+              onClick={() => navigate(-1)}
+              className="flex-1 border-2 border-gray-300 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300"
+            >
+              Go Back
+            </button>
+          </div>
         </div>
       </div>
     </div>

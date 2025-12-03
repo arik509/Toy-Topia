@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PopularToys from "./Components/PopularToys";
@@ -9,13 +8,26 @@ import img1 from "./assets/img1.png";
 import img2 from "./assets/2nd.png";
 import { Link } from "react-router";
 import DynamicHelmet from "./DynamicHelmet";
-import { FaGift, FaTag, FaTruck, FaEnvelope } from "react-icons/fa";
+import { FaGift, FaTag, FaTruck, FaEnvelope, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const HomePage = () => {
   const [toys, setToys] = useState([]);
   const [mostRatedToys, setMostRatedToys] = useState([]);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { 
+      loop: true,
+      align: 'start',
+      slidesToScroll: 1,
+      breakpoints: {
+        '(min-width: 768px)': { slidesToScroll: 2 },
+        '(min-width: 1024px)': { slidesToScroll: 3 }
+      }
+    },
+    [Autoplay({ delay: 3500, stopOnInteraction: false })]
+  );
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
@@ -30,40 +42,8 @@ const HomePage = () => {
       });
   }, []);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    pauseOnHover: true,
-    arrows: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
@@ -81,56 +61,51 @@ const HomePage = () => {
         Our Collections
       </h2>
 
-      <div className="slider-container mb-16">
-        <Slider {...sliderSettings}>
-          {toys.map((toy) => (
-            <div key={toy.toyId} className="px-3">
-              <div className="bg-[#fffaf5] p-10 rounded-2xl shadow-md hover:shadow-[0_0_20px_rgba(255,140,0,0.5)] transition-all duration-500 flex flex-col items-center hover:scale-[1.03]">
-                <div className="w-40 h-40 rounded-full overflow-hidden bg-white flex justify-center items-center shadow-inner">
-                  <img
-                    src={toy.pictureURL}
-                    alt={toy.toyName}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <h3 className="text-lg font-semibold text-[#333]">
-                    {toy.toyName}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-5">
-                    ${toy.price.toFixed(2)}
-                  </p>
+      <div className="relative mb-16">
+        <div className="overflow-hidden" ref={emblaRef}>
+          <div className="flex">
+            {toys.map((toy) => (
+              <div 
+                key={toy.toyId} 
+                className="flex-[0_0_100%] min-w-0 md:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-3"
+              >
+                <div className="bg-[#fffaf5] p-10 rounded-2xl shadow-md hover:shadow-[0_0_20px_rgba(255,140,0,0.5)] transition-all duration-500">
+                  <div className="w-40 h-40 mx-auto rounded-full overflow-hidden bg-white flex justify-center items-center shadow-inner">
+                    <img
+                      src={toy.pictureURL}
+                      alt={toy.toyName}
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <h3 className="text-lg font-semibold text-[#333]">
+                      {toy.toyName}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-5">
+                      ${toy.price.toFixed(2)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </Slider>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={scrollPrev}
+          className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white shadow-lg rounded-full p-3 hover:bg-orange-100 transition-all z-10"
+        >
+          <FaChevronLeft className="text-[#ff8c00] text-xl" />
+        </button>
+        <button
+          onClick={scrollNext}
+          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white shadow-lg rounded-full p-3 hover:bg-orange-100 transition-all z-10"
+        >
+          <FaChevronRight className="text-[#ff8c00] text-xl" />
+        </button>
 
         <style>
           {`
-            .slick-prev,
-            .slick-next {
-              z-index: 1;
-            }
-            .slick-prev {
-              left: -35px;
-            }
-            .slick-next {
-              right: -35px;
-            }
-            .slick-prev:before,
-            .slick-next:before {
-              color: #ff8c00;
-              font-size: 30px;
-            }
-            .slick-dots li button:before {
-              color: #ff8c00;
-              font-size: 10px;
-            }
-            .slick-dots li.slick-active button:before {
-              color: #ff8c00;
-            }
-
             @keyframes pageFade {
               from { opacity: 0; transform: scale(0.98); }
               to { opacity: 1; transform: scale(1); }
@@ -186,7 +161,7 @@ const HomePage = () => {
       <div className="mb-16" data-aos="fade-up">
         <h2 className="text-3xl font-bold text-center mb-8">Special Offers</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-orange-100 to-pink-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div className="bg-linear-to-br from-orange-100 to-pink-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
             <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <FaGift className="text-[#ff7b54] text-3xl" />
             </div>
@@ -197,7 +172,7 @@ const HomePage = () => {
             </Link>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div className="bg-linear-to-br from-blue-100 to-purple-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
             <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <FaTag className="text-blue-600 text-3xl" />
             </div>
@@ -208,7 +183,7 @@ const HomePage = () => {
             </Link>
           </div>
 
-          <div className="bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+          <div className="bg-linear-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
             <div className="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
               <FaTruck className="text-green-600 text-3xl" />
             </div>
@@ -258,7 +233,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="mb-16 bg-gradient-to-r from-[#ff7b54] to-[#ff946e] rounded-3xl p-8 md:p-12 text-white shadow-2xl" data-aos="fade-up">
+      <div className="mb-16 bg-linear-to-r from-[#ff7b54] to-[#ff946e] rounded-3xl p-8 md:p-12 text-white shadow-2xl" data-aos="fade-up">
         <div className="max-w-3xl mx-auto text-center">
           <FaEnvelope className="text-5xl mx-auto mb-4 animate-bounce" />
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

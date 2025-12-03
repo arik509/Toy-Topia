@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
-import { AuthContext } from "./Provider/AuthProvider";
 import DynamicHelmet from "./DynamicHelmet";
+import { FaSort } from "react-icons/fa";
 
 const AllToys = () => {
   const toys = useLoaderData();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sortBy, setSortBy] = useState("default");
 
   const navigate = useNavigate();
 
@@ -16,6 +17,25 @@ const AllToys = () => {
     selectedCategory === "All"
       ? toys
       : toys.filter((toy) => toy.subCategory === selectedCategory);
+
+  const sortedToys = [...filteredToys].sort((a, b) => {
+    switch (sortBy) {
+      case "price-low":
+        return a.price - b.price;
+      case "price-high":
+        return b.price - a.price;
+      case "rating-high":
+        return b.rating - a.rating;
+      case "rating-low":
+        return a.rating - b.rating;
+      case "name-az":
+        return a.toyName.localeCompare(b.toyName);
+      case "name-za":
+        return b.toyName.localeCompare(a.toyName);
+      default:
+        return 0;
+    }
+  });
 
   const handleViewDetails = (toyId) => {
     navigate(`/products/${toyId}`);
@@ -65,10 +85,29 @@ const AllToys = () => {
         </div>
 
         <div className="col-span-12 md:col-span-9">
-          <h2 className="font-bold text-2xl mb-6">{selectedCategory} Toys</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <h2 className="font-bold text-2xl">{selectedCategory} Toys</h2>
+            
+            <div className="flex items-center gap-2 w-full sm:w-auto">
+              <FaSort className="text-gray-500" />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#ff7b54] w-full sm:w-auto"
+              >
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating-high">Rating: High to Low</option>
+                <option value="rating-low">Rating: Low to High</option>
+                <option value="name-az">Name: A to Z</option>
+                <option value="name-za">Name: Z to A</option>
+              </select>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredToys.map((toy) => (
+            {sortedToys.map((toy) => (
               <div
                 key={toy.toyId}
                 className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"

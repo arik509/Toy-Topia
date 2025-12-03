@@ -13,6 +13,7 @@ import Contact from "../../Contact";
 import ForgotPassword from "../../ForgotPassword";
 import Cart from "../../Cart";
 import UpdateProfile from "../../UpdateProfile";
+import About from "../../About";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact></Contact>,
       },
+      {
+        path: "/about",
+        element: <About></About>
+      }
     ],
   },
   {
