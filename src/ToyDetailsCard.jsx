@@ -1,12 +1,16 @@
 import React, { useContext, useState } from "react";
 import { FaStar, FaTimes, FaShoppingCart, FaCheckCircle } from "react-icons/fa";
+import { useNavigate } from "react-router";
 import { CartContext } from "../src/Provider/CartProvider";
+import { AuthContext } from "../src/Provider/AuthProvider";
 
 const ToyDetailsCard = ({ toy }) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { addToCart } = useContext(CartContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +25,14 @@ const ToyDetailsCard = ({ toy }) => {
       setFormData({ name: "", email: "" });
       setIsSubmitted(false);
     }, 2000);
+  };
+
+  const handleAddToCart = () => {
+    if (!user) {
+      navigate("/auth/login", { state: { from: window.location.pathname } });
+    } else {
+      addToCart(toy);
+    }
   };
 
   return (
@@ -87,7 +99,7 @@ const ToyDetailsCard = ({ toy }) => {
 
           <div className="flex gap-4 mt-auto">
             <button 
-              onClick={() => addToCart(toy)}
+              onClick={handleAddToCart}
               className="flex-1 bg-linear-to-r from-[#ff7b54] to-[#ff946e] text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-[#ff946e] hover:to-[#ff7b54] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center justify-center gap-2"
             >
               <FaShoppingCart /> Add to Cart

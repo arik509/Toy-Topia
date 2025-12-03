@@ -8,7 +8,6 @@ const AllToys = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const categories = ["All", ...new Set(toys.map((toy) => toy.subCategory))];
@@ -19,11 +18,7 @@ const AllToys = () => {
       : toys.filter((toy) => toy.subCategory === selectedCategory);
 
   const handleViewDetails = (toyId) => {
-    if (!user) {
-      navigate("/auth/login", { state: { from: `/products/${toyId}` } });
-    } else {
-      navigate(`/products/${toyId}`);
-    }
+    navigate(`/products/${toyId}`);
   };
 
   return (

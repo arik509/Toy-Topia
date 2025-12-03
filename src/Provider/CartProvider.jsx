@@ -5,15 +5,27 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem("toytopia-cart")) || [];
-    setCart(storedCart);
+    const storedCart = localStorage.getItem("toytopia-cart");
+    if (storedCart) {
+      try {
+        const parsedCart = JSON.parse(storedCart);
+        setCart(parsedCart);
+      } catch (error) {
+        console.error("Failed to parse cart from localStorage", error);
+        setCart([]);
+      }
+    }
+    setIsLoaded(true);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("toytopia-cart", JSON.stringify(cart));
-  }, [cart]);
+    if (isLoaded) {
+      localStorage.setItem("toytopia-cart", JSON.stringify(cart));
+    }
+  }, [cart, isLoaded]);
 
   const addToCart = (toy) => {
     const exists = cart.find((item) => item.toyId === toy.toyId);
