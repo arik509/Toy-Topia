@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PopularToys from "./Components/PopularToys";
-import img1 from "./assets/img1.png"
-import img2 from "./assets/2nd.png"
+import img1 from "./assets/img1.png";
+import img2 from "./assets/2nd.png";
 import { Link } from "react-router";
 import DynamicHelmet from "./DynamicHelmet";
-
-
 
 const HomePage = () => {
   const [toys, setToys] = useState([]);
@@ -31,85 +27,100 @@ const HomePage = () => {
       });
   }, []);
 
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   return (
-    <div className="w-11/12 mx-auto my-[40px] animate-pageFade">
+    <div className="w-11/12 mx-auto my-10 animate-pageFade">
       <DynamicHelmet title="Home" />
       <h2 data-aos="fade-up" className="text-3xl font-bold text-center mb-6">
         Our Collections
       </h2>
 
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={25}
-        loop={true}
-        loopFillGroupWithBlank={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
-        pagination={{ clickable: true }}
-        navigation={true}
-        modules={[Pagination, Navigation, Autoplay]}
-        className="mySwiper relative"
-        breakpoints={{
-          0: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        onSwiper={(swiper) => {
-          setTimeout(() => {
-            if (swiper.autoplay) {
-              swiper.autoplay.start();
-            }
-          }, 200);
-        }}
-      >
-        {toys.map((toy) => (
-          <SwiperSlide key={toy.toyId}>
-            <div
-              data-aos="zoom-in"
-              className="bg-[#fffaf5] p-[40px] rounded-2xl shadow-md
-              hover:shadow-[0_0_20px_rgba(255,140,0,0.5)]
-              transition-all duration-500 flex flex-col items-center hover:scale-[1.03]"
-            >
-              <div className="w-40 h-40 rounded-full overflow-hidden bg-white flex justify-center items-center shadow-inner">
-                <img
-                  src={toy.pictureURL}
-                  alt={toy.toyName}
-                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110 animate-floating"
-                />
-              </div>
-              <div className="mt-4 text-center">
-                <h3 className="text-lg font-semibold text-[#333]">
-                  {toy.toyName}
-                </h3>
-                <p className="text-sm text-gray-600 mb-[20px]">
-                  ${toy.price.toFixed(2)}
-                </p>
+      <div className="slider-container mb-16">
+        <Slider {...sliderSettings}>
+          {toys.map((toy) => (
+            <div key={toy.toyId} className="px-3">
+              <div
+                className="bg-[#fffaf5] p-10 rounded-2xl shadow-md
+                hover:shadow-[0_0_20px_rgba(255,140,0,0.5)]
+                transition-all duration-500 flex flex-col items-center hover:scale-[1.03]"
+              >
+                <div className="w-40 h-40 rounded-full overflow-hidden bg-white flex justify-center items-center shadow-inner">
+                  <img
+                    src={toy.pictureURL}
+                    alt={toy.toyName}
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-semibold text-[#333]">
+                    {toy.toyName}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-5">
+                    ${toy.price.toFixed(2)}
+                  </p>
+                </div>
               </div>
             </div>
-          </SwiperSlide>
-        ))}
+          ))}
+        </Slider>
 
         <style>
           {`
-            .swiper-button-prev,
-            .swiper-button-next {
+            .slick-prev,
+            .slick-next {
+              z-index: 1;
+            }
+            .slick-prev {
+              left: -35px;
+            }
+            .slick-next {
+              right: -35px;
+            }
+            .slick-prev:before,
+            .slick-next:before {
               color: #ff8c00;
-              opacity: 0;
-              transition: opacity 0.4s ease;
+              font-size: 30px;
             }
-            .mySwiper:hover .swiper-button-prev,
-            .mySwiper:hover .swiper-button-next {
-              opacity: 1;
+            .slick-dots li button:before {
+              color: #ff8c00;
+              font-size: 10px;
             }
-            .swiper-pagination-bullet {
-              background: #ff8c00;
-              opacity: 0.6;
-            }
-            .swiper-pagination-bullet-active {
-              opacity: 1;
+            .slick-dots li.slick-active button:before {
+              color: #ff8c00;
             }
 
             @keyframes pageFade {
@@ -119,18 +130,9 @@ const HomePage = () => {
             .animate-pageFade {
               animation: pageFade 0.8s ease-out;
             }
-
-            @keyframes floating {
-              0% { transform: translateY(0); }
-              50% { transform: translateY(-8px); }
-              100% { transform: translateY(0); }
-            }
-            .animate-floating {
-              animation: floating 3s ease-in-out infinite;
-            }
           `}
         </style>
-      </Swiper>
+      </div>
 
       <div>
         <PopularToys></PopularToys>
@@ -175,7 +177,10 @@ const HomePage = () => {
             <p className="mt-2 text-[14px] md:text-[16px] text-gray-700 font-medium">
               Flash sale 30% • Extra discount for loyal customers
             </p>
-            <Link to='/products' className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-[#0c4a6e] font-semibold px-5 py-2 rounded-full shadow-md transition-all">
+            <Link
+              to="/products"
+              className="mt-4 bg-yellow-400 hover:bg-yellow-500 text-[#0c4a6e] font-semibold px-5 py-2 rounded-full shadow-md transition-all"
+            >
               Shop Now
             </Link>
           </div>
@@ -202,7 +207,7 @@ const HomePage = () => {
                 <img
                   src={toy.pictureURL}
                   alt={toy.toyName}
-                  className="w-full h-full object-cover animate-floating"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <div className="mt-4 text-center">

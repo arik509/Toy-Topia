@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaStar, FaRegHeart } from "react-icons/fa";
-import { Link, useNavigate } from "react-router";
+import { FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -29,79 +29,76 @@ const PopularToys = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto my-[50px] lg:my-[80px]">
-      <h2 data-aos="fade-up" className="text-3xl font-bold text-center mb-[40px] lg:mb-[60px]">
+    <div className="my-[50px] lg:my-20">
+      <h2 data-aos="fade-up" className="text-3xl font-bold text-center mb-10 lg:mb-[60px]">
         Top picks for your little ones
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {toys.map((toy, index) => (
           <div
             key={toy.toyId}
             data-aos="zoom-in"
             data-aos-delay={index * 100}
-            className="bg-[#fffaf5] p-4 rounded-2xl shadow hover:shadow-lg transition-all duration-500 relative transform cursor-pointer hover:scale-[1.03]"
+            className="group bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer hover:-translate-y-2"
           >
-            {toy.isTrending && (
-              <span
-                data-aos="slide-down"
-                className="absolute top-3 left-3 bg-[#ff7b54] text-white text-sm px-3 py-1 rounded-full"
-              >
-                SALE
-              </span>
-            )}
-
-            <button className="absolute top-3 right-3 text-gray-400 hover:text-[#ff7b54] transition-all duration-300">
-              <FaRegHeart />
-            </button>
-
-            <div className="w-full flex justify-center mb-4">
-              <img
-                src={toy.pictureURL}
-                alt={toy.toyName}
-                className="w-40 h-40 object-contain transition-transform duration-500 hover:scale-110 "
-              />
+            
+            <div className="relative bg-linear-to-br from-orange-50 to-pink-50 p-6 overflow-hidden">
+              {toy.isTrending && (
+                <span className="absolute top-4 left-4 bg-linear-to-r from-[#ff7b54] to-[#ff946e] text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg z-10">
+                  SALE
+                </span>
+              )}
+              
+              <div className="relative h-56 flex items-center justify-center">
+                <img
+                  src={toy.pictureURL}
+                  alt={toy.toyName}
+                  className="w-full h-full object-contain transform transition-transform duration-700 group-hover:scale-110 group-hover:rotate-3"
+                />
+              </div>
             </div>
 
-            <h3 className="font-semibold text-lg text-gray-800 mb-1">{toy.toyName}</h3>
+            
+            <div className="p-5 bg-white">
+              
+              <h3 className="font-bold text-lg text-gray-800 mb-2 line-clamp-1 group-hover:text-[#ff7b54] transition-colors">
+                {toy.toyName}
+              </h3>
 
-            <p className="text-sm text-gray-600 mb-1">
-              Available:{" "}
-              <span className="font-semibold text-[#ff7b54]">{toy.availableQuantity}</span>
-            </p>
+              
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-full">
+                  <FaStar className="text-amber-400 text-sm" />
+                  <span className="text-sm font-semibold text-gray-700">
+                    {toy.rating}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500">
+                  Stock: <span className="font-bold text-[#ff7b54]">{toy.availableQuantity}</span>
+                </p>
+              </div>
 
-            <div className="flex items-center gap-2 mb-2">
-              <p className="text-[#ff7b54] font-bold text-lg">${toy.price.toFixed(2)}</p>
-            </div>
+              
+              <div className="mb-4">
+                <p className="text-2xl font-bold text-[#ff7b54]">
+                  ${toy.price.toFixed(2)}
+                </p>
+              </div>
 
-            <div className="flex gap-1 text-yellow-400 mb-3">
-            <p className="text-[#ff7b54] font-bold text-lg flex items-center gap-2">{toy.rating} <FaStar></FaStar></p>
-            </div>
-
-            <div className="text-center">
+              
               <button
                 onClick={() => handleViewDetails(toy.toyId)}
-                className="bg-[#ff7b54] text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-[#ff946e] transition-all transform hover:scale-105 cursor-pointer"
+                className="w-full bg-linear-to-r from-[#ff7b54] to-[#ff946e] text-white font-semibold py-3 rounded-xl 
+                hover:from-[#ff946e] hover:to-[#ff7b54] transition-all duration-300 transform hover:scale-105 
+                shadow-md hover:shadow-xl cursor-pointer"
               >
-                View More
+                View Details
               </button>
             </div>
           </div>
         ))}
       </div>
-
-      <style>
-        {`
-          @keyframes floating {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0); }
-          }
-          .animate-floating {
-            animation: floating 3s ease-in-out infinite;
-          }
-        `}
-      </style>
     </div>
   );
 };

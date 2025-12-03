@@ -11,7 +11,6 @@ const Home = () => {
   return (
     <div>
       <header>
-        <Navbar></Navbar>
         <Header></Header>
         {location.pathname === "/" && <HeroSection />}
       </header>
