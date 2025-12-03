@@ -20,12 +20,9 @@ const PopularToys = () => {
       });
   }, []);
 
+
   const handleViewDetails = (toyId) => {
-    if (!user) {
-      navigate("/auth/login", { state: { from: `/products/${toyId}` } });
-    } else {
-      navigate(`/products/${toyId}`);
-    }
+    navigate(`/products/${toyId}`);
   };
 
   return (

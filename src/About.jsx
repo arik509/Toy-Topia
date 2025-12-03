@@ -84,7 +84,7 @@ const About = () => {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-[#ff7b54] to-[#ff946e] rounded-2xl p-8 md:p-12 text-white text-center">
+          <div className="bg-linear-to-r from-[#ff7b54] to-[#ff946e] rounded-2xl p-8 md:p-12 text-white text-center">
             <h2 className="text-3xl font-bold mb-4">Join Our Journey</h2>
             <p className="text-lg mb-6 opacity-90">
               Become part of the Toy Topia family and discover toys that make every moment special
