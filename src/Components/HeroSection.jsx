@@ -19,25 +19,26 @@ const HeroSection = () => {
       <img
         src={bannerImg}
         alt="Hero Banner"
-        className="w-full h-[80vh] object-cover object-center"
+        className="w-full h-[60vh] md:h-[65vh] lg:h-[70vh] object-cover object-center"
       />
 
       
       <div
-        className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-10 md:px-20"
+        className="absolute inset-0 bg-black/40 flex flex-col justify-center items-start px-6 md:px-10 lg:px-20"
         data-aos="fade-right"
       >
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+        <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-3 md:mb-4">
           Play, Learn & Grow!
         </h1>
-        <p className="text-lg md:text-xl text-gray-200 max-w-md mb-6">
+        <p className="text-base md:text-lg lg:text-xl text-gray-200 max-w-md mb-4 md:mb-6">
           Discover our fun and educational toys designed to inspire creativity
           and joy in every child.
         </p>
-        <Link to="/products"
+        <Link 
+          to="/products"
           data-aos="zoom-in"
           data-aos-delay="300"
-          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full transition-all"
+          className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 md:px-6 py-2.5 md:py-3 rounded-full transition-all shadow-lg hover:shadow-xl"
         >
           Shop Now
         </Link>

@@ -104,7 +104,7 @@ const Header = () => {
                             Contact
                         </Link>
 
-                        {user && (-
+                        {user && (
                             <>
                                 <NavLink
                                     to="/cart"
